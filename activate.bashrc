@@ -1,5 +1,5 @@
 # Make absolute path
-PROJECT_DIR=$(dirname $(abspath ${BASH_SOURCE[0]}))
+PROJECT_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
 
 # add base bin directory to path
 # includes:
