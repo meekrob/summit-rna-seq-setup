@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Test the suitability of the following 
-#  configuration script to run programs
+# configuration script to set up the
+# environment.
 source activate.bashrc
 ######################################
 
@@ -23,6 +24,7 @@ echo "----------------------------------" >> $ERROR_FILE
 
 # Individual tests
 
+# subread
 echo -n "Testing for subread-align..."
 if subread-align -v 2>&1 | grep -q Subread-align 
 then
@@ -32,6 +34,7 @@ else
     subread-align -v 2>> $ERROR_FILE
 fi
 
+# samtools
 echo -n "Testing for samtools..."
 if samtools 2>&1 | grep -q '^Version: 1.'
 then 
@@ -41,21 +44,23 @@ else
     samtools 2>> $ERROR_FILE
 fi
 
-# one-liners
+# hisat
 echo -n "Testing for hisat2..."
 hisat2 --version > /dev/null 2>>$ERROR_FILE && echo "OK" || report_error "ERROR: hisat2 not found or couldn't be run."
 
+# bedtools
 echo -n "Testing for bedtools..."
 bedtools --version 2>>$ERROR_FILE | grep -q "^bedtools v2" && echo "OK" || report_error "ERROR: bedtools not found or couldn't be run."
 
+# trimmomatic
 echo -n "Testing for trimmomatic..."
 trimmomatic -version 2>>$ERROR_FILE | grep -q '^0.' && echo "OK" || report_error "ERROR: trimmomatic not found or couldn't be run."
 
+# fastqc
 echo -n "Testing for fastqc..."
 fastqc --version  2>>$ERROR_FILE | grep -q '^FastQC v0.' && echo "OK" || report_error "ERROR: Fastqc not found or couldn't be run."
 
-# Summing up
-
+# Summarize
 if [ $error_count -gt 0 ]
 then
     echo
