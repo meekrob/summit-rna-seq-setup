@@ -3,7 +3,7 @@ default:
 	@echo
 
 test:
-	bash .test_activation.bash
+	@bash .test_activation.bash
 	@echo
 	@echo "Testing job submission..."
 	@cd .test_environ && bash test_job_submission.bash
