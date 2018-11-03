@@ -13,6 +13,7 @@ then
     echo "Job submission failed"
     cat head.msg err.msg tail.msg | mailx -s "Job submission failed for $USER" dcking@colostate.edu 
     cat err.msg
+    exit 1
 else
     echo "Job submission passed"
     rm err.msg
