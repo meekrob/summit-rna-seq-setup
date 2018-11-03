@@ -1,2 +1,5 @@
 # created by user during sbatch check:
 summit_env.txt
+
+# Links can't be added to a git repo, but we have to link to scratch
+01_input
