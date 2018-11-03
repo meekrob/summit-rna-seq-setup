@@ -1,1 +1,15 @@
-/projects/dcking@colostate.edu/bin/trimmomatic
+#!/usr/bin/env bash
+THIS_BIN_DIR=$(dirname $(realpath ${BASH_SOURCE[0]})) # get the directory housing this script and the jar file
+JARFILE=trimmomatic-0.36.jar
+JARPATH=$THIS_BIN_DIR/$JARFILE
+
+# check for the jar 
+if [ ! -e $JARPATH ]
+then
+    echo "ERROR: $JARFILE NOT FOUND in $THIS_BIN_DIR" >&2
+    echo "You must place it there to run Trimmomatic." >&2
+    exit 1
+fi
+
+# Found the jar, run it with options passed to this script
+java -jar $JARPATH $@
