@@ -3,3 +3,9 @@ summit_env.txt
 
 # Links can't be added to a git repo, but we have to link to scratch
 01_input
+
+# Data and log files
+*.fastq
+*.out
+DSCI512_scratch
+DSCI512_scratch_2

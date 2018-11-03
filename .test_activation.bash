@@ -54,7 +54,7 @@ bedtools --version 2>>$ERROR_FILE | grep -q "^bedtools v2" && echo "OK" || repor
 
 # trimmomatic
 echo -n "Testing for trimmomatic..."
-trimmomatic -version 2>>$ERROR_FILE | grep -q '^0.' && echo "OK" || report_error "ERROR: trimmomatic not found or couldn't be run."
+java -jar Trimmomatic-0.36/trimmomatic-0.36.jar  -version 2>>$ERROR_FILE | grep -q '^0.' && echo "OK" || report_error "ERROR: trimmomatic not found or couldn't be run."
 
 # fastqc
 echo -n "Testing for fastqc..."
