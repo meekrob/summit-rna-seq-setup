@@ -4,7 +4,7 @@ FASTQC_OUTDIR=${SUMMIT_ROOT}/01_fastqc
 TRIMMO_OUTDIR=${SUMMIT_ROOT}/02_trimmomatic
 default:
 	@echo "Type 'make setup' to set up data paths, validate program availability and test job submission."
-	@echo
+	@echo ${SUMMIT_ROOT_STR}
 
 setup: test-bin link-data test-sbatch
 #setup: test-bin link-data 
