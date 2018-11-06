@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=10
-#SBATCH --time=0:02:00
+#SBATCH --ntasks=6
+#SBATCH --time=0:04:00
 #SBATCH --qos=normal
 #SBATCH --partition=shas
-#SBATCH --output=trimmomatic-%j.out
+#SBATCH --output=trimmomatic-%A-%a.out
+#SBATCH --array=0-11
+# this script will be invoked 12 times, 
+# each with a different value assigned to 
+# SLURM_ARRAY_TASK_ID 
+# within the range 0-11 (inclusive).
 echo "[$0] $SLURM_JOB_NAME $@" # log the command line
 date # timestamp
 source activate.bashrc
 #
-# Run a single trimmomatic job 
+# Run a single trimmomatic job in an array setting
 # Usage: 
-# sbatch 03_scripts/trimmomatic.sbatch file_1.fastq 
+# sbatch 03_scripts/trimmomatic.sbatch 
 #
-infile=$1 # like 01_input/SRR1234567_1.fastq
+files=(SRR3567551_1.fastq SRR3567552_1.fastq SRR3567554_1.fastq SRR3567555_1.fastq SRR3567637_1.fastq SRR3567638_1.fastq SRR3567639_1.fastq SRR3567657_1.fastq SRR3567674_1.fastq SRR3567676_1.fastq SRR3567677_1.fastq SRR3567679_1.fastq)
+
+# this time, the choice of file will be determined by the value of SLURM_ARRAY_ID in the range we set above
+# we will use that value to dereference our files array.
+infile=01_input/${files[$SLURM_ARRAY_TASK_ID]}
 outdir=02_output/02_trimmomatic
 
 in1=$infile

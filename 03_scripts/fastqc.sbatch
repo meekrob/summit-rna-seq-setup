@@ -7,9 +7,6 @@
 #SBATCH --output=slurm-%j.out # %j is the assigned job number
 # log the command line
 echo "[$0] $SLURM_JOB_NAME $@" 
-# set temp directories to the scratch space
-export TMPDIR=$SLURM_SCRATCH
-export TMP=$TMPDIR
 date # timestamp
 
 # set up your environment, PATH variable, modules
@@ -19,4 +16,4 @@ source activate.bashrc
 fastq=$1 # pass the fastq file as the 1st argument
 outdir=$2 # pass the output directory as the 2nd argument
 # fastqc will crash with usage message if the above two are not set
-fastqc -t $SLURM_NTASKS -d $TMP -o $outdir $fastq
+fastqc -t $SLURM_NTASKS -d $SLURM_SCRATCH -o $outdir $fastq
