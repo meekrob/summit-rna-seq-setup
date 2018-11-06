@@ -1,5 +1,9 @@
-To test that your account is set up correctly, type:
+To download and test this repository, log on to summit AND scompile (ssh scompile), 
+followed by:
 
+$ cd /projects/$USER
+$ git clone https://github.com/meekrob/summit-rna-seq-setup.git
+$ cd summit-rna-seq-setup
 $ make setup
 
 First, it will test the suitability of the command:
