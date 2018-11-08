@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=10
+#SBATCH --ntasks=6
 #SBATCH --time=0:02:00
-#SBATCH --qos=normal
-#SBATCH --partition=shas
+#SBATCH --qos=testing
+#SBATCH --partition=shas-testing
 #SBATCH --output=trimmomatic-%j.out
 echo "[$0] $SLURM_JOB_NAME $@" # log the command line
 date # timestamp
@@ -20,11 +20,14 @@ in1=$infile
 # make the mate pair filename by replacing _1 with _2
 in2=${infile/_1.fastq/_2.fastq}
 
-# make all the file output names, strip the input directory with 'basename'
-out1paired=$(basename ${in1/.fastq/.trimmed.fastq})    # makes: SRR1234567_1.trimmed.fastq
-out1unpaired=$(basename ${in1/.fastq/.unpaired.fastq}) # makes: SRR1234567_1.unpaired.fastq
-out2paired=$(basename ${in2/.fastq/.trimmed.fastq})    # makes: SRR1234567_2.trimmed.fastq
-out2unpaired=$(basename ${in2/.fastq/.unpaired.fastq}) # makes: SRR1234567_2.unpaired.fastq
+# strip the input directory with 'basename'
+basename1=$(basename $in1)
+basename2=$(basename $in2)
+# make all the file output names
+out1paired=${basename1/.fastq/.trimmed.fastq}    # makes: SRR1234567_1.trimmed.fastq
+out1unpaired=${basename1/.fastq/.unpaired.fastq} # makes: SRR1234567_1.unpaired.fastq
+out2paired=${basename2/.fastq/.trimmed.fastq}    # makes: SRR1234567_2.trimmed.fastq
+out2unpaired=${basename2/.fastq/.unpaired.fastq} # makes: SRR1234567_2.unpaired.fastq
 
 # This large chunk of params comes from the website demo, but...
 # notice the Trimmomatic-0.36/adapters/TruSeq3-PE.fa path given to ILLUMINACLIP
