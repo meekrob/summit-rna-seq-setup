@@ -7,5 +7,6 @@
 #SBATCH --output=numreads-%j.out
 
 # 4 lines per read in FASTQ format
-numreads=$(( $(wc -l $1) / 4 ))
+numlines=$(wc -l $1 | cut -f1 -d ' ')
+numreads=$(( numlines / 4 ))
 echo "$1 has $numreads reads."
